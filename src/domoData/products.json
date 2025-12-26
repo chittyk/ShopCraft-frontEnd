@@ -1,0 +1,178 @@
+[
+  {
+    "productName": "Tropical Mango Juice",
+    "description": "Freshly squeezed mango juice with natural pulp, no added sugar.",
+    "thumbnail": {
+      "url": "https://images.unsplash.com/photo-1587300003388-59208cc962cb",
+      "alt": "Mango Juice Bottle"
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1551024601-bec78aea704b", "alt": "Mango Juice Glass" },
+      { "url": "https://images.unsplash.com/photo-1611078487623-dbb776aab962", "alt": "Tropical Juice" },
+      { "url": "https://images.unsplash.com/photo-1565958011705-44e21155b396", "alt": "Fresh Mango" }
+    ],
+    "tags": ["juice", "mango", "fresh", "organic"],
+    "isActive": true,
+    "category": "68ff8b02cae5e7002252694b",
+    "price": 120,
+    "oldPrice": 150,
+    "stock": 80,
+    "rate": 4.5,
+    "isPremium": false,
+    "extraNote": "Keep refrigerated for best taste."
+  },
+  {
+    "productName": "Strawberry Ice Cream Tub",
+    "description": "Creamy strawberry ice cream made from farm-fresh milk and natural strawberry puree.",
+    "thumbnail": {
+      "url": "https://images.unsplash.com/photo-1565958011705-44e21155b396",
+      "alt": "Strawberry Ice Cream"
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1505253758473-96b7015fcd40", "alt": "Ice Cream Bowl" },
+      { "url": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad", "alt": "Frozen Dessert" },
+      { "url": "https://images.unsplash.com/photo-1510626176961-4b57d4fbad03", "alt": "Strawberry Flavor" }
+    ],
+    "tags": ["ice cream", "dessert", "strawberry", "sweet"],
+    "isActive": true,
+    "category": "68ff8b0fcae5e7002252694e",
+    "price": 220,
+    "oldPrice": 260,
+    "stock": 50,
+    "rate": 4.7,
+    "isPremium": true,
+    "extraNote": "Best served chilled."
+  },
+  {
+    "productName": "Classic Wooden Rocking Chair",
+    "description": "Handcrafted wooden rocking chair for comfort and style in your living room.",
+    "thumbnail": {
+      "url": "https://images.unsplash.com/photo-1582582425284-1e0a27b1bbd4",
+      "alt": "Rocking Chair"
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1578898888453-278cb1c9f5e4", "alt": "Chair Side View" },
+      { "url": "https://images.unsplash.com/photo-1598300053720-41d1553e5dc3", "alt": "Wood Finish" },
+      { "url": "https://images.unsplash.com/photo-1558211583-d26f610c68e9", "alt": "Chair Armrest" }
+    ],
+    "tags": ["chair", "wooden", "furniture", "living room"],
+    "isActive": true,
+    "category": "68ff8b5ecae5e70022526957",
+    "price": 4599,
+    "oldPrice": 5200,
+    "stock": 25,
+    "rate": 4.3,
+    "isPremium": true,
+    "extraNote": "Made with 100% teak wood."
+  },
+  {
+    "productName": "Deluxe Remote Control Car",
+    "description": "High-speed RC car with rechargeable battery and LED headlights.",
+    "thumbnail": {
+      "url": "https://images.unsplash.com/photo-1598300053720-41d1553e5dc3",
+      "alt": "Remote Car"
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1602524206598-1b04e7d4a6b1", "alt": "RC Car Top" },
+      { "url": "https://images.unsplash.com/photo-1601597116071-8379d99e6f69", "alt": "Car Remote" },
+      { "url": "https://images.unsplash.com/photo-1600180758890-6a6d4b2d3f64", "alt": "Racing Car Toy" }
+    ],
+    "tags": ["toy", "kids", "car", "rc"],
+    "isActive": true,
+    "category": "68ff8b21cae5e70022526951",
+    "price": 1899,
+    "oldPrice": 2499,
+    "stock": 60,
+    "rate": 4.6,
+    "isPremium": false,
+    "extraNote": "Includes USB charging cable."
+  },
+  {
+    "productName": "Pineapple Punch Juice",
+    "description": "Refreshing pineapple juice enriched with vitamin C.",
+    "thumbnail": {
+      "url": "https://images.unsplash.com/photo-1621860937308-13b6f0fba93d",
+      "alt": "Pineapple Juice"
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1611078487623-dbb776aab962", "alt": "Glass of Juice" },
+      { "url": "https://images.unsplash.com/photo-1625951822361-6b3c5d99cf0b", "alt": "Tropical Pineapple Drink" },
+      { "url": "https://images.unsplash.com/photo-1621860937308-13b6f0fba93d", "alt": "Juice Bottle" }
+    ],
+    "tags": ["juice", "pineapple", "refreshing", "healthy"],
+    "isActive": true,
+    "category": "68ff8b02cae5e7002252694b",
+    "price": 130,
+    "oldPrice": 160,
+    "stock": 100,
+    "rate": 4.4,
+    "isPremium": false,
+    "extraNote": "Shake well before use."
+  },
+  {
+    "productName": "Chocolate Fudge Ice Cream",
+    "description": "Rich chocolate ice cream with real fudge chunks for a creamy delight.",
+    "thumbnail": {
+      "url": "https://images.unsplash.com/photo-1532634896-26909d0d4b6a",
+      "alt": "Chocolate Ice Cream"
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1505253216365-06a3dcd36826", "alt": "Chocolate Scoop" },
+      { "url": "https://images.unsplash.com/photo-1565958011705-44e21155b396", "alt": "Ice Cream Tub" },
+      { "url": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad", "alt": "Chocolate Dessert" }
+    ],
+    "tags": ["ice cream", "chocolate", "dessert"],
+    "isActive": true,
+    "category": "68ff8b0fcae5e7002252694e",
+    "price": 250,
+    "oldPrice": 280,
+    "stock": 70,
+    "rate": 4.8,
+    "isPremium": true,
+    "extraNote": "Store below -18°C."
+  },
+  {
+    "productName": "Wooden Study Chair",
+    "description": "Ergonomic wooden chair perfect for students and office work.",
+    "thumbnail": {
+      "url": "https://images.unsplash.com/photo-1567016542606-5f48f7efc7c4",
+      "alt": "Wooden Study Chair"
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1606813902849-52a2e9a8b5cd", "alt": "Chair in Room" },
+      { "url": "https://images.unsplash.com/photo-1598300053720-41d1553e5dc3", "alt": "Chair Backrest" },
+      { "url": "https://images.unsplash.com/photo-1558211583-d26f610c68e9", "alt": "Wood Finish" }
+    ],
+    "tags": ["chair", "study", "wood", "home"],
+    "isActive": true,
+    "category": "68ff8b5ecae5e70022526957",
+    "price": 2999,
+    "oldPrice": 3500,
+    "stock": 40,
+    "rate": 4.2,
+    "isPremium": false,
+    "extraNote": "Easy to assemble."
+  },
+  {
+    "productName": "Kids Teddy Bear Toy",
+    "description": "Soft plush teddy bear that kids love to hug and play with.",
+    "thumbnail": {
+      "url": "https://images.unsplash.com/photo-1600180758890-6a6d4b2d3f64",
+      "alt": "Teddy Bear"
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1578301978693-85b6ebc8fd3b", "alt": "Soft Toy" },
+      { "url": "https://images.unsplash.com/photo-1611078487623-dbb776aab962", "alt": "Cuddly Bear" },
+      { "url": "https://images.unsplash.com/photo-1505253758473-96b7015fcd40", "alt": "Toy Gift" }
+    ],
+    "tags": ["toy", "kids", "teddy", "gift"],
+    "isActive": true,
+    "category": "68ff8b21cae5e70022526951",
+    "price": 850,
+    "oldPrice": 1100,
+    "stock": 120,
+    "rate": 4.8,
+    "isPremium": false,
+    "extraNote": "Machine washable fabric."
+  }
+]
