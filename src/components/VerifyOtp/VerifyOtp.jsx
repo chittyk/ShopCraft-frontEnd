@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { saveToken } from "../../utils/auth.js";
 import Api from "../../utils/Api.js";
 import { current } from "@reduxjs/toolkit";
-
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../../redux/features/user/userSlice.js";
 function VerifyOtp({ name, email, password, onPasswordSubmit }) {
+  const dispatch =useDispatch()
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
@@ -86,17 +88,19 @@ function VerifyOtp({ name, email, password, onPasswordSubmit }) {
     try {
       let response;
       console.log(current)
-
+      console.log("current path : " ,currentPath )
       if (currentPath === "/signup") {
         // SignUp OTP verification
-        response = await Api.post(import.meta.env.VITE_VERIFYSIGNUP, {
+        console.log(import.meta.env.VITE_VERIFYSIGNUP)
+        response = await Api.post(import.meta.env.VITE_VERIFYSIGNUP || "/api/users/verifySignUp", {
           name,
           email,
           password,
           otp: enteredOtp.toString(),
         });
-
+        const user = { name: response.data.newUser.name, email: response.data.newUser.email }
         saveToken(response.data.token);
+        dispatch(setUserInfo(user));
         setMsg(response.data?.msg || "OTP Verified Successfully!");
         setError("");
         setTimeout(() => navigate("/"), 1000);
@@ -131,7 +135,7 @@ function VerifyOtp({ name, email, password, onPasswordSubmit }) {
   const handleResendOtp = async () => {
     try {
       const currentPath = window.location.pathname;
-      if (currentPath === "/SignUp") {
+      if (currentPath === "/signup") {
         await Api.post(import.meta.env.VITE_SIGNUP, { name, email, password });
       } else if (currentPath === "/forgetPassword") {
         await Api.put(import.meta.env.VITE_FORGETPASSWORD, { email , password });

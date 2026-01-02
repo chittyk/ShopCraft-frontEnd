@@ -1,5 +1,6 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
+import Api from "../../utils/Api";
 
 export default function CategoryBar() {
   const [categories, setCategories] = useState([]);
@@ -8,9 +9,24 @@ export default function CategoryBar() {
   const [activeCategory, setActiveCategory] = useState(null);
 
   useEffect(() => {
+    // const fetchCategories = async () => {
+    //   try {
+    //     const response = await axios.get("http://localhost:8082/api/category");
+
+    //     if (response.status === 200 && Array.isArray(response.data)) {
+    //       setCategories(response.data);
+    //     } else {
+    //       console.error("Unexpected API response:", response.data);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching categories:", error);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8082/api/category");
+        const response = await Api.get(import.meta.env.VITE_CATEGORY);
 
         if (response.status === 200 && Array.isArray(response.data)) {
           setCategories(response.data);
@@ -23,7 +39,6 @@ export default function CategoryBar() {
         setLoading(false);
       }
     };
-
     fetchCategories();
   }, []);
 
@@ -58,20 +73,21 @@ export default function CategoryBar() {
       >
         {visibleCategories.map((cat) => (
           <div
-  key={cat._id || cat.id}
-  onClick={() => setActiveCategory(cat._id || cat.id)}
-  title={cat.description}
-  className={`flex items-center justify-center text-center px-4 py-3 rounded-2xl cursor-pointer font-medium shadow-md 
+            key={cat._id || cat.id}
+            onClick={() => setActiveCategory(cat._id || cat.id)}
+            title={cat.description}
+            className={`flex items-center justify-center text-center px-4 py-3 rounded-2xl cursor-pointer font-medium shadow-md 
     transition-all duration-200 ease-in-out select-none min-h-[60px]
     ${
       activeCategory === (cat._id || cat.id)
         ? "bg-blue-600 text-white scale-105 shadow-lg"
         : "bg-gray-800 text-gray-100 hover:bg-gray-700 hover:shadow-md hover:scale-105"
     }`}
->
-  <span className="whitespace-normal break-words leading-snug">{cat.name}</span>
-</div>
-
+          >
+            <span className="whitespace-normal break-words leading-snug">
+              {cat.name}
+            </span>
+          </div>
         ))}
 
         {/* +N button */}

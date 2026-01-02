@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Api from "../../utils/Api";
 import WriteReview from "./writeRivew";
-import { successAlert, errorAlert } from "../../utils/alert";
+import { successAlert, errorAlert } from "../../utils/Alert";
 
 function EditorDeleteReview({ productId, refresh }) {
   const [showForm, setShowForm] = useState(false);

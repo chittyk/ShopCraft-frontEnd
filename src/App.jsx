@@ -17,6 +17,10 @@ import ProductDetails from "./pages/home/ProductDetails.jsx";
 function App() {
   return (
     <div className="bg-gray-900 flex flex-col text-white min-h-screen">
+      
+      
+      
+      
       <Navbar />
       <main className="flex flex-row justify-center py-20">
         <div className="hidden md:block w-[15%] h-10"></div>
@@ -24,10 +28,10 @@ function App() {
         <div className="flex-1">
           <Routes>
             {/*  Protected Routes */}
-            {/* <Route element={<ProtectedRoutes />}> */}
+            <Route element={<ProtectedRoutes />}>
               <Route path="/" element={<HomePage />} />
               <Route path="/product/:id" element={<ProductDetails />} />
-            {/* </Route> */}
+            </Route>
 
             {/* Prevent Go Back Routes */}
             <Route element={<PreventGoBack />}>
@@ -44,6 +48,12 @@ function App() {
         <div className="hidden md:block w-[15%] h-10"></div>
       </main>
       <Footer />
+
+
+      {/* for admin panel */}
+      
+      
+
     </div>
   );
 }

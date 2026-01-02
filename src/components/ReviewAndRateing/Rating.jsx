@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Api from "../../utils/Api";
-import { errorAlert } from "../../utils/alert";
+import { errorAlert } from "../../utils/Alert";
+
 import WriteReview from "./writeRivew";
 import EditorDeleteReview from "./EditorDeleteReview";
 

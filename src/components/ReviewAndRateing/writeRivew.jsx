@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, X } from "lucide-react";
 import Api from "../../utils/Api";
-import { successAlert, errorAlert, warningAlert } from "../../utils/alert";
+import { successAlert, errorAlert, warningAlert } from "../../utils/Alert";
 
 function WriteReview({
   showForm,

@@ -38,7 +38,8 @@ const SignupPage = () => {
       setLoading(true);
 
       const res = await Api.post(
-        import.meta.env.VITE_SIGNUP || "http://localhost:8080/api/users/signUp",
+        import.meta.env.VITE_SIGNUP,
+                        
         formData,
         // { timeout: 8000 } // 8 sec timeout
       );
