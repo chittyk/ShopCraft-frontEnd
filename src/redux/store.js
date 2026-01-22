@@ -20,7 +20,7 @@ const persistedUserReducer = persistReducer(persistConfig, userReducer);
 const rootReducer = combineReducers({
   cart: cartReducer,
   user: persistedUserReducer,
-  wishlist: wishlistReducer,   // ✅ FIXED HERE
+  wishlist: wishlistReducer,   
 });
 
 // 4. Create store

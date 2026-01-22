@@ -9,12 +9,15 @@
         --accent-color: #f59e0b; /* Amber/Gold Accent (amber-500) */
         --accent-hover: #fbbf24; /* Lighter Amber/Gold for hover (amber-400) */
         --accent-border: #f59e0b; /* Accent for borders/focus */
-        
+        --div-bg-color: #020618
       }
 
       /* Backgrounds */
       .bg-primary {
         background-color: var(--primary-bg);
+      }
+      .div-bg{
+        background-color: var(--div-bg-color);
       }
       .bg-secondary {
         background-color: var(--secondary-bg);
