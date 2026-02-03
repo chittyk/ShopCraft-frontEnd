@@ -36,7 +36,7 @@ function EditorDeleteReview({ productId, refresh }) {
       await Api.delete(`${import.meta.env.VITE_PRODUCT_REVIEW}/${id}`);
 
       successAlert("Review deleted successfully!");
-      refresh(); // refresh review list
+      refresh(); 
     } catch (error) {
       errorAlert("Failed to delete review.");
       console.log(error);

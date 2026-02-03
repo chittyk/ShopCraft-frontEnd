@@ -20,7 +20,7 @@ function CartButton({ productId }) {
           `${import.meta.env.VITE_CARTSERVICE}/${productId}`
         );
         setCount(response.data?.count || 0);
-        // dispatch(incrementCartCount())
+        dispatch(incrementCartCount())
       } catch (err) {
         console.warn("Cart item not found, initializing count = 0",err);
         setCount(0);
@@ -102,7 +102,13 @@ function CartButton({ productId }) {
       {count <= 0 ? (
         <button
           onClick={increaseCount} // ✅ call backend
-          className="px-4 py-2 h-10  rounded-xl transition bg-[var(--accent-color)] text-white hover:bg-[var(--accent-hover)]"
+          className="px-4 py-2 h-10
+    rounded-xl
+    transition
+    bg-[var(--accent-color)] text-white
+    hover:bg-[var(--accent-hover)]
+    whitespace-nowrap
+    shrink-0"
         >
           Add to Cart
         </button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 // import Navbar from "./user/components/Navbar.jsx";
 // import Footer from "./user/components/Footer.js";
@@ -19,11 +19,16 @@ import UserLayout from "./route/UserLayout.jsx";
 import AdminLayout from "./route/AdminLayout.jsx";
 import Dashboard from "./admin/pages/dashboard.jsx";
 import Products from "./admin/pages/products.jsx";
+import { isTokenValid } from "./utils/auth.js";
+import CategoryPage from "./admin/pages/CategoryPage.jsx";
+
 
 
 
 function App() {
-
+  useEffect(() => {
+    isTokenValid()
+  }, []);
   return (
     <Routes>
       {/* ================= USER PANEL ================= */}
@@ -49,9 +54,13 @@ function App() {
       <Route element={<ProtectedAdmin />}>
       
         <Route element={<AdminLayout />}>
-          <Route path="/admin/category" element={<div>Category</div>} />
+          <Route path="/admin/category" element={ 
+            <CategoryPage/>
+           } />
           <Route path="/admin/dashboard" element={Dashboard} />
           <Route path="/admin/product" element={<Products/> } />
+          
+
         </Route>
       </Route>
     </Routes>

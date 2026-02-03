@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import ProductCard from "./ProductCard";
 import Api from "../../../utils/Api";
 
-
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +17,7 @@ const Products = () => {
     try {
       setLoading(true);
       const response = await Api.get(
-        `${import.meta.env.VITE_PRODUCTSERVICE}?page=${pageNumber}&limit=${limit}`
+        `${import.meta.env.VITE_PRODUCTSERVICE}?page=${pageNumber}&limit=${limit}`,
       );
       const data = response.data;
 
@@ -53,7 +52,7 @@ const Products = () => {
           setPage((prev) => prev + 1);
         }
       },
-      { threshold: 1 }
+      { threshold: 1 },
     );
 
     const lastProduct = document.querySelector("#load-more-trigger");
@@ -71,7 +70,6 @@ const Products = () => {
       </div>
     );
 
-  // 🟢 Render UI
   return (
     <div className="min-h-screen w-full py-10 px-6 bg-gray-900">
       <h1 className="text-3xl font-bold text-[var(--accent-color)] text-center mb-8">
@@ -79,11 +77,13 @@ const Products = () => {
       </h1>
 
       {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.length > 0 ? (
-          products.map((product, idx) => (
-            <ProductCard key={product._id || idx} product={product} />
-          ))
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {products.filter((p) => p.isActive).length > 0 ? (
+          products
+            .filter((product) => product.isActive)
+            .map((product, idx) => (
+              <ProductCard key={product._id || idx} product={product} />
+            ))
         ) : (
           <p className="text-center text-gray-500 col-span-full">
             No products available
@@ -106,7 +106,7 @@ const Products = () => {
       {/* No More Products */}
       {!hasMore && (
         <p className="text-center text-gray-500 mt-6">
-            You’ve reached the end!
+          You’ve reached the end!
         </p>
       )}
     </div>

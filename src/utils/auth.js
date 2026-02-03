@@ -26,6 +26,7 @@ export const isTokenValid = () => {
   try {
     
     const decoded = jwtDecode(token);
+    
     const user = {
       name:decoded.name,
       email:decoded.email,

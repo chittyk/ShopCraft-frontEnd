@@ -5,8 +5,13 @@ import {
   Home,
   Package,
   Settings,
-  Layers 
+  Layers,
 } from "lucide-react";
+
+
+
+
+
 import { useNavigate } from "react-router-dom";
 
 function SideBar() {
@@ -30,7 +35,7 @@ function SideBar() {
 
   return (
     <div
-      className={`bg-[#020618] h-screen py-15 text-slate-200 overflow-hidden
+      className={`bg-[#020618]  py-15 text-slate-200 overflow-hidden
       transition-[width] duration-300 ease-in-out
       ${open ? "w-[200px]" : "w-[60px]"}`}
     >
@@ -53,9 +58,7 @@ function SideBar() {
         {/* Dashboard */}
         <li
           onClick={() => HandleRedirect("dashboard")}
-          className={`${itemBase} ${
-            active === "dashboard" ? activeStyle : ""
-          }`}
+          className={`${itemBase} ${active === "dashboard" ? activeStyle : ""}`}
         >
           <Home
             className={`w-6 h-10 transition-all duration-200
@@ -66,10 +69,8 @@ function SideBar() {
 
         {/* Products */}
         <li
-          onClick={() => HandleRedirect("category")}
-          className={`${itemBase} ${
-            active === "products" ? activeStyle : ""
-          }`}
+          onClick={() => HandleRedirect("product")}
+          className={`${itemBase} ${active === "product" ? activeStyle : ""}`}
         >
           <Package
             className={`w-6 h-10 transition-all duration-200
@@ -78,12 +79,22 @@ function SideBar() {
           {open && <span>Products</span>}
         </li>
 
+        {/* category */}
+        <li
+          onClick={() => HandleRedirect("category")}
+          className={`${itemBase} ${active === "category" ? activeStyle : ""}`}
+        >
+          <Layers
+            className={`w-6 h-10 transition-all duration-200
+            ${!open ? "mx-auto group-hover:scale-110" : "group-hover:scale-110"}`}
+          />
+          {open && <span>category</span>}
+        </li>
+
         {/* Settings */}
         <li
           onClick={() => HandleRedirect("settings")}
-          className={`${itemBase} ${
-            active === "settings" ? activeStyle : ""
-          }`}
+          className={`${itemBase} ${active === "settings" ? activeStyle : ""}`}
         >
           <Settings
             className={`w-6 h-10 transition-all duration-200

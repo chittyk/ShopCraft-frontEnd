@@ -25,7 +25,9 @@ function UserIcon() {
   const handleLogout = () => {
     localStorage.removeItem("token");    // clear token first
     dispatch(clearUserInfo());           // clear Redux state
+    
     persistor.purge();                   // clear persisted storage
+    localStorage.removeItem("persist:user")
     setShowDropdown(false);              // close dropdown
     navigate('/')      // redirect to login page
   };

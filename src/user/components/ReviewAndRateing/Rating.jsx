@@ -28,7 +28,7 @@ function ReviewSummary({ productId }) {
   const [reviewTrigger,setReviewTrigger]=useState(0)
   const observerRef = useRef(null);
 
-  // ⭐ Rating Summary States
+
   const [ratings, setRatings] = useState({
     1: 0,
     2: 0,
@@ -39,23 +39,25 @@ function ReviewSummary({ productId }) {
   });
   const [averageRating, setAverageRating] = useState(0);
   const [totalRatings, setTotalRatings] = useState(0);
-
   const [isReview, setIsReview] = useState(false);
-  useEffect(() => {
-    const isReview = async () => {
-      try {
-        const res = await Api.get(
-          `${import.meta.env.VITE_PRODUCT_REVIEW}/getOneReview/${productId}`
-        );
-        setIsReview(true);
-      } catch (error) {
-        setIsReview(false);
-        console.log("Failed to fetch user review:", error);
-      }
-    };
 
-    isReview();
-  }, [productId,reviewTrigger]);
+ useEffect(() => {
+  const checkUserReview = async () => {
+    try {
+      const res =await Api.get(
+        `${import.meta.env.VITE_PRODUCT_REVIEW}/getOneReview/${productId}`
+      );
+      
+      setIsReview(true);   // ✅ user HAS reviewed
+    } catch {
+      setIsReview(false); // ✅ user has NOT reviewed
+    }
+  };
+
+  checkUserReview();
+}, [productId, reviewTrigger]);
+
+
 
   //  Fetch Rating Summary
   const fetchRatingSummary = async () => {
@@ -65,7 +67,7 @@ function ReviewSummary({ productId }) {
       const res = await Api.get(
         `${import.meta.env.VITE_PRODUCT_REVIEW}/rating/${productId}`
       );
-
+      console.log("average :",res)
       const { ratings, averageRating, totalReviews } = res.data;
       setRatings(ratings || {});
       setAverageRating(averageRating || 0);
@@ -81,14 +83,15 @@ function ReviewSummary({ productId }) {
   }, [productId]);
 
   const refreshAll = async () => {
-    setReviews([]);
-    setPage(1);
-    await fetchReviews(1, sortOrder);
-    await fetchRatingSummary();
-    setReviewTrigger(prev => prev + 1);
-  };
+  setReviews([]);
+  setPage(1);
+  // setIsReview(false);
+  await fetchReviews(1, sortOrder);
+  await fetchRatingSummary();
+  setReviewTrigger(prev => prev + 1);
+};
 
-  // 🧩 Fetch Paginated Reviews
+
   const fetchReviews = async (pageNum = 1, sort = sortOrder) => {
     if (!productId) return;
     setLoading(true);
@@ -109,7 +112,7 @@ function ReviewSummary({ productId }) {
 
       setTotalPages(totalPages);
     } catch (error) {
-      console.error("❌ Failed to fetch reviews:", error);
+      console.error("Failed to fetch reviews:", error);
       errorAlert("Failed to fetch reviews.");
     } finally {
       setLoading(false);
@@ -197,6 +200,7 @@ function ReviewSummary({ productId }) {
         setShowForm={setShowForm}
         productId={productId}
         refresh={refreshAll}
+        
       />
 
       {/* Summary Row */}

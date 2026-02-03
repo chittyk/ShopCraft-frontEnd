@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaStar, FaRegStar, FaHeart, FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import imageNotFound from "../../../assets/imageNotFound.png";
@@ -6,21 +6,32 @@ import CartButton from "../Cart/CartButton";
 import Api from "../../../utils/Api";
 import { useDispatch } from "react-redux";
 import { incrementCartCount } from "../../../redux/features/cart/cartSlice";
-import { decrementWishlistCount, incrementWishlistCount } from "../../../redux/features/wishlist/wishlistSlice";
+import {
+  decrementWishlistCount,
+  incrementWishlistCount,
+} from "../../../redux/features/wishlist/wishlistSlice";
 
 const ProductCard = ({ product }) => {
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
+  const [averageRating, setAverageRating] = useState(0);
   const navigate = useNavigate();
   const [wishlisted, setWishlisted] = useState(false);
+  const [totalReviews, setTotalReviews] = useState(0);
 
+  useEffect(() => {
+    console.log("PRODUCT :", product);
+  });
   // ------------------------------------------------------
   // CHECK IF PRODUCT IS ALREADY IN WISHLIST
   // ------------------------------------------------------
   useEffect(() => {
+    console.log(product._id);
     const checkWishlist = async () => {
+      console.log("produuuucts: ", product);
       try {
-        const res = await Api.get(`${import.meta.env.VITE_WISHLIST}/${product._id}`);
+        const res = await Api.get(
+          `${import.meta.env.VITE_WISHLIST}/${product._id}`,
+        );
         setWishlisted(res.data.exists === true); // backend must send exists:true
       } catch (err) {
         setWishlisted(false);
@@ -30,6 +41,31 @@ const ProductCard = ({ product }) => {
     checkWishlist();
   }, [product._id]);
 
+  const ratingFetched = useRef(false);
+
+  useEffect(() => {
+    if (!product?._id) return;
+    if (ratingFetched.current) return;
+
+    ratingFetched.current = true;
+
+    const fetchRatingSummary = async () => {
+      try {
+        const res = await Api.get(
+          `${import.meta.env.VITE_PRODUCT_REVIEW}/rating/${product._id}`,
+        );
+        console.log(res);
+
+        setAverageRating(res.data.averageRating || 0);
+        setTotalReviews(res.data.totalReviews || 0);
+      } catch (error) {
+        console.error("Failed to fetch rating summary:", error);
+      }
+    };
+
+    fetchRatingSummary();
+  }, [product._id]);
+
   // ------------------------------------------------------
   // HANDLE WISHLIST ADD / REMOVE
   // ------------------------------------------------------
@@ -37,11 +73,12 @@ const ProductCard = ({ product }) => {
     try {
       if (!wishlisted) {
         await Api.post(`${import.meta.env.VITE_WISHLIST}/${product._id}`);
-        dispatch(incrementWishlistCount())
+        
+        dispatch(incrementWishlistCount());
         setWishlisted(true);
       } else {
         await Api.delete(`${import.meta.env.VITE_WISHLIST}/${product._id}`);
-        dispatch(decrementWishlistCount())
+        dispatch(decrementWishlistCount());
         setWishlisted(false);
       }
     } catch (error) {
@@ -51,12 +88,12 @@ const ProductCard = ({ product }) => {
 
   // Render stars
   const renderStars = (rating) => {
-    return Array.from({ length: 5 }).map((_, i) =>
-      i < rating ? (
+    return Array.from({ length: 6 }).map((_, i) =>
+      i < Math.round(rating) ? (
         <FaStar key={i} className="text-yellow-400" />
       ) : (
         <FaRegStar key={i} className="text-gray-300" />
-      )
+      ),
     );
   };
 
@@ -81,11 +118,7 @@ const ProductCard = ({ product }) => {
       {/* IMAGE */}
       <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
         <img
-          src={
-            product.thumbnail.url && product.images.length > 0
-              ? product.images[0].url
-              : imageNotFound
-          }
+          src={product.thumbnail}
           alt={product.thumbnail.alt}
           className="w-full h-60 object-cover"
         />
@@ -105,13 +138,16 @@ const ProductCard = ({ product }) => {
 
       {/* Details */}
       <div className="p-4">
-        <h3 className="text-lg font-semibold truncate">{product.productName}</h3>
+        <h3 className="text-lg font-semibold truncate">
+          {product.productName}
+        </h3>
         <p className="text-gray-600 text-sm line-clamp-2 mt-1">
           {product.description}
         </p>
 
         <div className="flex items-center gap-1 mt-2">
-          {renderStars(product.rate || 0)}
+          {renderStars(averageRating)}
+          <span className="ml-1 text-sm text-gray-500">({totalReviews})</span>
         </div>
 
         {/* Stock Warning */}
@@ -125,9 +161,20 @@ const ProductCard = ({ product }) => {
 
         {/* Price + Cart */}
         <div className="flex items-center justify-between mt-4">
-          <div>
-            <span className="text-xl font-bold text-[var(--accent-color)]">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            {/* Discounted Price */}
+            <span className="text-xl sm:text-2xl font-bold text-[var(--accent-color)]">
+              ₹{product.price - Math.round((product.price * product.off) / 100)}
+            </span>
+
+            {/* Original Price */}
+            <span className="text-sm sm:text-base text-gray-400 line-through">
               ₹{product.price}
+            </span>
+
+            {/* Offer Badge */}
+            <span className="text-xs sm:text-sm font-semibold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+              -{product.off}%
             </span>
           </div>
 

@@ -12,13 +12,14 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [selectedImg, setSelectedImg] = useState(0);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
         const response = await Api.get(
-          `${import.meta.env.VITE_PRODUCTSERVICE}/${id}`
+          `${import.meta.env.VITE_PRODUCTSERVICE}/${id}`,
         );
         setProduct(response.data);
         console.log("product serviice", response.data);
@@ -32,6 +33,10 @@ function ProductDetails() {
 
     fetchProduct();
   }, [id]);
+
+  const handleSelect =(id)=>{
+    setSelectedImg(id)
+  }
 
   if (loading)
     return (
@@ -58,38 +63,24 @@ function ProductDetails() {
     productName,
     description,
     price,
-    oldPrice,
+    off,
     stock,
     tags,
     features,
     brand,
     category,
+    extraNote,
     thumbnail,
     images,
     ratings,
   } = product;
 
-  // Calculate total average rating if available
-  const totalRatings =
-    ratings && Object.values(ratings).reduce((a, b) => a + b, 0);
-  const weightedRating =
-    ratings &&
-    totalRatings > 0 &&
-    (
-      Object.entries(ratings).reduce(
-        (sum, [star, count]) => sum + Number(star) * count,
-        0
-      ) / totalRatings
-    ).toFixed(1);
-
-  const discountPercent =
-    oldPrice && price ? Math.round(((oldPrice - price) / oldPrice) * 100) : 0;
+  const discountPrice =off && price ? price - Math.round((price * off) / 100) : 0;
 
   return (
     <div className="min-h-screen bg-gray-900" style={{}}>
       <div className="max-w-7xl mx-auto px-6 py-10">
         <div className="bg-gray-800 rounded-2xl shadow-2xl overflow-hidden p-6 lg:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {/* 🖼️ Left - Image Gallery */}
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Thumbnail List */}
             <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible order-2 sm:order-1">
@@ -97,6 +88,7 @@ function ProductDetails() {
                 (img, idx) => (
                   <div
                     key={idx}
+                    onClick={() => handleSelect(idx)}
                     className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 border-gray-600 hover:border-[var(--accent-color)] transition-all duration-300 hover:scale-105"
                   >
                     <img
@@ -105,17 +97,13 @@ function ProductDetails() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                )
+                ),
               )}
             </div>
 
             <div className="flex-1 min-h-[400px] max-h-[600px] bg-gray-800 rounded-xl overflow-hidden shadow-lg">
               <img
-                src={
-                  images?.[0]?.url ||
-                  thumbnail?.url ||
-                  "https://via.placeholder.com/800x800/374151/ffffff?text=No+Image"
-                }
+                src={images[selectedImg]}
                 alt={productName}
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               />
@@ -131,15 +119,19 @@ function ProductDetails() {
               </span>
               <span
                 className={`flex items-center gap-1 text-sm font-medium ${
-                  stock > 0 ? "text-green-400" : "text-red-400"
+                  stock > 10 ? "text-green-400" : "text-red-400"
                 }`}
               >
                 <div
                   className={`w-2 h-2 rounded-full ${
-                    stock > 0 ? "bg-green-400" : "bg-red-400"
+                    stock > 10 ? "bg-green-400" : "bg-red-400"
                   }`}
                 ></div>
-                {stock > 0 ? "In Stock" : "Out of Stock"}
+                {stock > 0
+                  ? stock > 10
+                    ? "In Stock"
+                    : `${stock} only left`
+                  : "Out of Stock"}
               </span>
             </div>
 
@@ -156,18 +148,18 @@ function ProductDetails() {
             {/* Price */}
             <div className="flex items-baseline gap-3 mb-6">
               <span className="text-4xl  font-bold text-white">
-                ₹{price?.toLocaleString()}
+                ₹{discountPrice?.toLocaleString()}
               </span>
               <span className="text-2xl text-gray-500 line-through">
-                ₹{oldPrice?.toLocaleString()}
+                ₹{price?.toLocaleString()}
               </span>
-              {discountPercent > 0 && (
+              {discountPrice > 0 && (
                 <span className="px-3 py-1 bg-green-900 text-green-300 text-sm font-semibold rounded-full">
-                  Save {discountPercent}%
+                  Save {off}%
                 </span>
               )}
             </div>
-
+            <p className="text-gray-200 leading-relaxed mb-6">{extraNote}</p>
             {/* Description */}
             <p className="text-gray-300 leading-relaxed mb-6">{description}</p>
 
@@ -221,12 +213,11 @@ function ProductDetails() {
             </div>
           </div>
           {/* ⭐ Rating Section (Full Width Below Product Info) */}
-          {product.ratings &&
-            Object.values(product.ratings).some((count) => count > 0) && (
-              <div className="mt-10  rounded-2xl shadow-lg p-8 col-span-full w-full">
-                <Rating ratings={product.ratings} productId={product._id} />
-              </div>
-            )}
+          {product.ratings && (
+            <div className="mt-10 rounded-2xl shadow-lg p-8 col-span-full w-full">
+              <Rating productId={product._id} />
+            </div>
+          )}
         </div>
       </div>
     </div>
